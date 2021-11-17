@@ -121,7 +121,7 @@ class JobController extends Controller
         $address = request('address');
         
         if(!empty($keyword||$keyword2||$salmin||$salmax||$type||$category||$address)){ // Pembuatan logika filter pekerjaan
-            $jobs = Job::where([
+            $jobs = Job::latest()->where([
                 ['title', 'LIKE', '%'.$keyword.'%'],
                 ['position', 'LIKE', '%'.$keyword2.'%'],
                 ['salary_min', 'LIKE', $salmin],
@@ -135,7 +135,7 @@ class JobController extends Controller
 
         } else {
 
-            $jobs = Job::where('title', 'LIKE', '%'.$keyword.'%')
+            $jobs = Job::latest()->where('title', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('position', 'LIKE', $keyword2)
                 ->orWhere('salary_min', 'LIKE', $salmin)
                 ->orWhere('salary_max', 'LIKE', $salmax)
